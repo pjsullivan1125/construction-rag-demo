@@ -18,4 +18,7 @@ All data is FICTIONAL ("Lakeside Medical Pavilion" training project). Never add 
 - After each step, explain in plain English what the code does and why, and add a short note to LEARNING_NOTES.md.
 
 ## Commands
-(Update this section as commands are added.)
+- Activate: `source .venv/bin/activate` and `export PYTHONPATH=src`
+- Ask: `python -m rag.cli "question" [--strategy structured|fixed] [--mode vector|bm25|hybrid] [-k 3]`
+- Evaluate: `python -m rag.evaluate`
+- Test: `pytest -q`

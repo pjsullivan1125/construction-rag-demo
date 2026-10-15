@@ -1,0 +1,21 @@
+submittal_number,spec_section,description,submitted_by,date_submitted,reviewer,status,date_returned,revision,related_rfi
+S-03-001,03 30 00,"Concrete mix design - footings and walls (4,000 psi)",Cobalt Concrete,2026-03-02,Meridian Structural,Approved,2026-03-09,0,
+S-03-002,03 30 00,"Concrete mix design - slab on grade (4,500 psi)",Cobalt Concrete,2026-03-30,Meridian Structural,Revise and Resubmit,2026-04-07,0,RFI-004
+S-03-003,03 30 00,Concrete mix design - slab on grade resubmittal,Cobalt Concrete,2026-04-10,Meridian Structural,Approved,2026-04-15,1,RFI-004
+S-03-004,03 30 00,Reinforcing steel shop drawings,Cobalt Concrete,2026-03-10,Meridian Structural,Approved as Noted,2026-03-20,0,
+S-03-005,03 30 00,Curing compound product data,Cobalt Concrete,2026-06-04,Meridian Structural,Pending Review,,0,RFI-015
+S-03-006,03 30 00,Vapor retarder product data,Cobalt Concrete,2026-04-20,Meridian Structural,Approved,2026-04-27,0,
+S-05-001,05 12 00,Structural steel shop drawings - Levels 1 and 2,Ironwood Steel,2026-03-18,Meridian Structural,Approved as Noted,2026-04-01,0,RFI-002
+S-05-002,05 12 00,Structural steel shop drawings - Level 3 to roof,Ironwood Steel,2026-04-25,Meridian Structural,Revise and Resubmit,2026-05-08,0,
+S-05-003,05 12 00,Structural steel shop drawings - Level 3 to roof resubmittal,Ironwood Steel,2026-05-15,Meridian Structural,Approved,2026-05-22,1,
+S-05-004,05 12 00,Mill certificates - W-shapes,Ironwood Steel,2026-04-08,Meridian Structural,Approved,2026-04-13,0,
+S-05-005,05 12 00,Welding procedure specifications,Ironwood Steel,2026-05-30,Meridian Structural,Pending Review,,0,RFI-014
+S-07-001,07 92 00,Sealant product data,Tidewater Sealants,2026-04-06,Alder & Finch Architects,Approved as Noted,2026-04-14,0,RFI-006
+S-07-002,07 92 00,Sealant color chart,Tidewater Sealants,2026-04-10,Alder & Finch Architects,Approved,2026-04-22,0,RFI-006
+S-07-003,07 92 00,Compatibility and adhesion test reports,Tidewater Sealants,2026-05-18,Alder & Finch Architects,Rejected,2026-06-01,0,RFI-013
+S-07-004,07 92 00,Sealant joint mockup,Tidewater Sealants,2026-06-10,Alder & Finch Architects,Pending Review,,0,
+S-09-001,09 91 23,Paint product data and VOC content,Brightline Painting,2026-04-17,Alder & Finch Architects,Approved,2026-04-24,0,RFI-008
+S-09-002,09 91 23,Color samples - 8-by-10-inch brush-outs,Brightline Painting,2026-06-18,Alder & Finch Architects,Pending Review,,0,RFI-018
+S-09-003,09 91 23,Paint mockup - patient room 214,Brightline Painting,,Alder & Finch Architects,Not Yet Submitted,,0,RFI-012
+S-23-001,23 05 00,Ductwork insulation product data,Summit Mechanical,2026-05-05,Meridian Structural,Approved as Noted,2026-05-12,0,RFI-003
+S-23-002,23 05 00,Rooftop unit product data,Summit Mechanical,2026-06-12,Meridian Structural,Pending Review,,0,RFI-016

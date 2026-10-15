@@ -4,6 +4,39 @@ A small retrieval-augmented generation (RAG) project over fictional construction
 
 > All data is fictional. Built with AI assistance (Claude Code); I reviewed and can explain each part.
 
+# What Code is stating with RAG (written by Patrick) 
+
+Below explains the Loader.py file and how the Python Script (Sonnet 5.5 generated this script, but I can explain it) 
+
+* Loader.py -> this will house the Python scripting for
+* dataclass -> this is a shortcut for defining a simple class that holds data
+* re -> this is a regular expression so that finding patterns in text is possible
+* CSV & Path -> this is the spreadsheet style file that contains data and Path will be an easier way to work with file paths an just plain strings
+* __file__ -> is the pathway of the file
+* .resolve() -> will turn this into an absolute path
+* .parents[2] -> will go into two different folder, rage is parent folder 0, src is parent folder 1 and project root is parent 2
+
+* text, source_file, doc_type, spec_section, ref are all strings
+* @dataclass will modify the class below and it will write the constructor
+
+* ```def load_specs(data_dir: Path = DATA_DIR) -> list[Document]:
+    docs = []
+    for path in sorted((data_dir / "specs").glob("*.md")):
+        text = path.read_text(encoding="utf-8")
+        match = re.search(r"SECTION (\d\d \d\d \d\d)", text)
+        section = match.group(1) if match else "unknown"
+        docs.append(Document(text, path.name, "spec", section, ""))
+    return docs ```
+
+  The aforementioned portion of code states that we're taking the data_dir which is the same as DATA_DIR and then make a list of documents. For the documents, sort the data directory by specs and then add a markdown file to it. The text encoding is utf-8 means that this should be read as 8 bit code. From here, re.search is going to look for text in the word followed by 3 pairs (\d\d \d\d \d\d) which means its going to look for a retrieval in the chunking index of, for example, SECTION 03 30 00. The parentheses mark the part that are needed to capture. The reason for the r before the quote means that it makes it a raw strings so that backslashes aren't interacted with.
+
+  Lines 39-42
+  ```def _read_rows(path: Path) -> list[dict[str, str]]:
+    with path.open(encoding="utf-8", newline="") as f:
+        return list(csv.DictReader(f)) ```
+
+  The purpose of this is to ensure that this is an internal help er and isn't for other files to use.  With path.open(enconding="utf-8", newline="") as f means that the file can garantee it is closed afterward even if the error occurs.
+
 ## What it does
 You ask a question in plain English ("What is the maximum water-cement ratio for concrete?"). The program finds the few passages in the specs, RFI log and submittal register most likely to contain the answer, then builds a prompt that tells a language model to answer **only** from those passages and to cite their IDs. If no API key is set, it prints that prompt instead of calling a model. An evaluation script measures how often retrieval finds the right passage.
 

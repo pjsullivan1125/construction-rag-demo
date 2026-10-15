@@ -3,12 +3,12 @@
 Fill these in as you go. If you cannot explain it simply, ask Claude Code to explain it again.
 
 - Loading (step 1): Before searching, we read every file into a `Document` that remembers where it came from (file, spec section, RFI/submittal number). Spec files stay whole for now; each RFI/submittal row becomes one readable sentence-like text. Keeping metadata from the start is what makes citations possible later.
-- Chunking:
-- Embedding:
-- Vector index / similarity search:
-- Retriever and top-k:
-- Hybrid search (keyword + vector):
-- Grounding and citations:
+- Chunking (step 2): A chunk is the piece of text we search and cite. Strategy A ("structured") follows the document: one chunk per spec paragraph (2.1, 3.2...) and one per RFI/submittal row, 66 chunks total. Strategy B ("fixed") ignores structure and slides a 400-character window forward 350 characters at a time (so neighbours share 50 characters), 47 chunks total. A is cleaner to cite; B can cut a paragraph in half, which the overlap softens. The strategy is just a string parameter: `chunk_documents(docs, "structured" | "fixed")`.
+- Embedding (step 3): An embedding turns text into 384 numbers; similar meaning = similar direction. We use the small local model all-MiniLM-L6-v2 and normalize every vector to length 1.
+- Vector index / similarity search (step 3): The index is just a numpy matrix (one row per chunk). To search, embed the question, multiply the matrix by the question vector (dot product = cosine similarity for length-1 vectors), sort high to low, keep the top k. For 'max water-cement ratio' the top hit was 03 30 00 para 2.1 (score 0.73).
+- Retriever and top-k (step 4): `retrieve(question, k=3, mode=...)` returns the k best chunks with scores. 'top-k' just means keep the k highest-scoring chunks; k=3 means only 3 chunks go into the prompt, so the right one must be in those 3.
+- Hybrid search, keyword part (step 4): BM25 scores exact word matches, giving rare words (like 'A992') more weight. Vector search finds meaning; BM25 finds exact terms. Hybrid runs both and merges the two ranked lists with Reciprocal Rank Fusion: each list gives a chunk 1/(60+rank) points, points are added. We merge ranks, not scores, because cosine and BM25 scores are on different scales. I hand-wrote BM25 (about 30 lines, standard library) instead of installing a package.
+- Grounding and citations (step 5): 'Grounded' means the model may only use the sources we paste into the prompt. The prompt says: answer ONLY from these sources, cite the ID in [brackets], and if it isn't there say exactly 'I cannot find this in the provided documents.' Each source is labelled with its chunk ID so citations point back to a real chunk. With no ANTHROPIC_API_KEY the code just prints the prompt, so the whole pipeline still runs and you can read exactly what Claude would see.
 - Hallucination:
-- Evaluation (hit rate):
-- Why structured questions (counts, statuses) are better answered with SQL:
+- Evaluation (hit rate) (step 6): Hit rate @3 = of the test questions, how often the expected source is among the top 3 retrieved chunks. Result on the 9 answerable questions: vector 9/9 with both chunking strategies; BM25 and hybrid find at least one expected source 9/9 but miss one of the two sources in Q06 (8/9 for 'all sources'). With only 42-66 chunks, top-3 is an easy bar, so the strategies barely differ; the numbers would separate on a bigger corpus. Fixed-size chunks have no paragraph IDs, so a hit means the chunk contains at least 100 characters of the expected paragraph/row (an approximation).
+- Why structured questions (counts, statuses) are better answered with SQL: 'How many RFIs are open?' needs EVERY row checked and counted. Retrieval returns only the 3 most similar rows, and similarity cannot filter on status = 'Open', so the top 3 held only 2 of the 4 open RFIs (Q10) and 2 of 5 pending submittals (Q11). SQL does it exactly: SELECT COUNT(*) ... WHERE status = 'Open'. Q12 (no answer exists) still returns a nearest neighbour (score 0.446), so retrieval alone cannot say 'not found'; the prompt rule does.

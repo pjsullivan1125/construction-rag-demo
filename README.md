@@ -41,7 +41,7 @@ export PYTHONPATH=src                                  # lets Python find the ra
 python -m rag.cli "How long must concrete be kept moist for curing?"
 python -m rag.cli "Which bolt grade is used at moment connections?" --strategy fixed --mode vector -k 3
 python -m rag.evaluate                                 # prints the results below
-pytest -q                                              # 19 tests
+pytest -q                                              # 23 tests (add -m "not slow" to skip the 4 that load the model)
 ```
 Options: `--strategy structured|fixed`, `--mode vector|bm25|hybrid`, `-k` (chunks to retrieve).
 

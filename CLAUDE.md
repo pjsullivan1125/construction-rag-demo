@@ -21,4 +21,4 @@ All data is FICTIONAL ("Lakeside Medical Pavilion" training project). Never add 
 - Activate: `source .venv/bin/activate` and `export PYTHONPATH=src`
 - Ask: `python -m rag.cli "question" [--strategy structured|fixed] [--mode vector|bm25|hybrid] [-k 3]`
 - Evaluate: `python -m rag.evaluate`
-- Test: `pytest -q`
+- Test: `pytest -q` (`-m "not slow"` skips tests that load the embedding model)
